@@ -5,8 +5,18 @@ import { motion, useInView } from 'framer-motion';
 
 const socials = [
   {
+    label: 'Email',
+    href: 'mailto:ivan2006dubo@gmail.com',
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 18 18" fill="none">
+        <rect x="1" y="3" width="16" height="12" rx="1.5" stroke="currentColor" strokeWidth="1"/>
+        <path d="M1 5l8 6 8-6" stroke="currentColor" strokeWidth="1"/>
+      </svg>
+    ),
+  },
+  {
     label: 'Instagram',
-    href: 'https://instagram.com/ivandubovoi',
+    href: 'https://instagram.com/ivan_dubovoi_',
     icon: (
       <svg width="16" height="16" viewBox="0 0 18 18" fill="none">
         <rect x="2" y="2" width="14" height="14" rx="4" stroke="currentColor" strokeWidth="1"/>
@@ -16,21 +26,22 @@ const socials = [
     ),
   },
   {
-    label: 'Vimeo',
-    href: '#',
+    label: 'Telegram',
+    href: 'https://t.me/IvanDubovoi',
     icon: (
       <svg width="16" height="16" viewBox="0 0 18 18" fill="none">
-        <path d="M15.5 6.5c-.1 2-1.5 4.7-4.2 8.3C8.5 18.5 6.2 18.5 4.8 16c-.7-1.4-1.8-6-2.7-6-.3 0-.9.6-1.8 1.8L0 11c1-1 2-1.9 2.8-2.8 1.2-1 2.2-1.6 2.7-1.4 1.4.3 2.2 4.5 2.8 5.9.4 1.1 1 1.7 1.5 1.7.5 0 1.3-.6 2.3-1.9 1-1.3 1.6-2.3 1.6-3.6 0-.6-.3-1-.9-1-.4 0-.9.4-1.8 1.4-.1-2.7 1.2-4 3.7-4 1.3 0 2 .9 1.8 2.2z" fill="currentColor" opacity="0.6"/>
+        <path d="M2 9l13-6-5 14-3-5-5-3z" stroke="currentColor" strokeWidth="1" strokeLinejoin="round"/>
+        <path d="M7 13l1-4 5-4" stroke="currentColor" strokeWidth="1" strokeLinejoin="round"/>
       </svg>
     ),
   },
   {
-    label: 'YouTube',
-    href: '#',
+    label: 'WhatsApp',
+    href: 'https://wa.me/436818151355',
     icon: (
       <svg width="16" height="16" viewBox="0 0 18 18" fill="none">
-        <path d="M17 6c-.2-1.1-.8-1.9-1.9-2C13.3 3.8 9 3.8 9 3.8s-4.3 0-6.1.2C1.8 4.1 1.2 4.9 1 6 .8 7.1.8 9 .8 9s0 1.9.2 3c.2 1.1.8 1.9 1.9 2C4.7 14.2 9 14.2 9 14.2s4.3 0 6.1-.2c1.1-.1 1.7-.9 1.9-2C17.2 10.9 17.2 9 17.2 9s0-1.9-.2-3z" stroke="currentColor" strokeWidth="0.8"/>
-        <path d="M7.5 11.5v-5l4.5 2.5z" fill="currentColor" opacity="0.6"/>
+        <path d="M9 1.5A7.5 7.5 0 0116.5 9a7.5 7.5 0 01-10.6 6.8L2 17l1.2-3.9A7.5 7.5 0 019 1.5z" stroke="currentColor" strokeWidth="1"/>
+        <path d="M6.5 7c.2.7.7 1.4 1.2 1.9.6.6 1.3 1 2 1.2" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/>
       </svg>
     ),
   },

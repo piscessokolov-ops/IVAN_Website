@@ -6,8 +6,8 @@ import { motion, useInView } from 'framer-motion';
 const infoItems = [
   {
     label: 'Email',
-    value: 'hello@ivandubovoi.com',
-    href: 'mailto:hello@ivandubovoi.com',
+    value: 'ivan2006dubo@gmail.com',
+    href: 'mailto:ivan2006dubo@gmail.com',
     icon: (
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
         <rect x="1" y="3" width="16" height="12" rx="1.5" stroke="currentColor" strokeWidth="0.9"/>
@@ -17,8 +17,8 @@ const infoItems = [
   },
   {
     label: 'Instagram',
-    value: '@ivandubovoi',
-    href: 'https://instagram.com/ivandubovoi',
+    value: '@ivan_dubovoi_',
+    href: 'https://instagram.com/ivan_dubovoi_',
     icon: (
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
         <rect x="2" y="2" width="14" height="14" rx="4" stroke="currentColor" strokeWidth="0.9"/>
@@ -28,13 +28,24 @@ const infoItems = [
     ),
   },
   {
-    label: 'Location',
-    value: 'Vienna, Austria',
-    href: null,
+    label: 'Telegram',
+    value: '@IvanDubovoi',
+    href: 'https://t.me/IvanDubovoi',
     icon: (
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-        <path d="M9 2a5 5 0 015 5c0 3.5-5 9-5 9S4 10.5 4 7a5 5 0 015-5z" stroke="currentColor" strokeWidth="0.9"/>
-        <circle cx="9" cy="7" r="1.8" stroke="currentColor" strokeWidth="0.9"/>
+        <path d="M2 9l13-6-5 14-3-5-5-3z" stroke="currentColor" strokeWidth="0.9" strokeLinejoin="round"/>
+        <path d="M7 13l1-4 5-4" stroke="currentColor" strokeWidth="0.9" strokeLinejoin="round"/>
+      </svg>
+    ),
+  },
+  {
+    label: 'WhatsApp',
+    value: '+43 681 81513554',
+    href: 'https://wa.me/436818151355',
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+        <path d="M9 1.5A7.5 7.5 0 0116.5 9a7.5 7.5 0 01-10.6 6.8L2 17l1.2-3.9A7.5 7.5 0 019 1.5z" stroke="currentColor" strokeWidth="0.9"/>
+        <path d="M6.5 7c.2.7.7 1.4 1.2 1.9.6.6 1.3 1 2 1.2" stroke="currentColor" strokeWidth="0.9" strokeLinecap="round"/>
       </svg>
     ),
   },
