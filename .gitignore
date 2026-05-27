@@ -5,3 +5,6 @@ node_modules/
 .env*.local
 out/
 memory/
+
+.vercel
+public/showreel.mp4
