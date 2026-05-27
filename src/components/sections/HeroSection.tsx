@@ -30,24 +30,6 @@ export default function HeroSection() {
         overflow: 'hidden',
       }}
     >
-      {/* Atmospheric background */}
-      <div style={{
-        position: 'absolute',
-        inset: 0,
-        background: 'linear-gradient(135deg, #0a0806 0%, #070707 50%, #0c0c0c 100%)',
-        overflow: 'hidden',
-      }}>
-        {/* Drifting light blobs */}
-        <div style={{
-          position: 'absolute',
-          inset: '-50%',
-          background: `
-            radial-gradient(ellipse 40% 40% at 30% 70%, rgba(200,169,110,0.07) 0%, transparent 60%),
-            radial-gradient(ellipse 50% 50% at 70% 30%, rgba(100,80,40,0.04) 0%, transparent 60%)
-          `,
-          animation: 'atmosphericDrift 20s ease-in-out infinite alternate',
-        }} />
-      </div>
 
       {/* Video background (swap in real video) */}
       <video
@@ -100,71 +82,65 @@ export default function HeroSection() {
         position: 'relative',
         zIndex: 3,
         textAlign: 'center',
-        maxWidth: 960,
+        maxWidth: 900,
         padding: '0 32px',
       }}>
-        {/* Eyebrow */}
+        {/* Name */}
+        <div style={{ overflow: 'hidden', marginBottom: 32 }}>
+          <motion.h1
+            initial={{ y: '110%' }}
+            animate={{ y: 0 }}
+            transition={{ delay: 1.6, duration: 1, ease: [0.76, 0, 0.24, 1] }}
+            style={{
+              fontFamily: 'var(--font-cormorant), Georgia, serif',
+              fontSize: 'clamp(3.5rem, 9vw, 9rem)',
+              fontWeight: 300,
+              lineHeight: 1,
+              letterSpacing: '0.06em',
+              color: 'var(--ink)',
+            }}
+          >
+            Ivan Dubovoi
+          </motion.h1>
+        </div>
+
+        {/* Roles */}
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.6, duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
+          transition={{ delay: 2.1, duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
           style={{
-            fontSize: '0.62rem',
-            letterSpacing: '0.45em',
-            textTransform: 'uppercase',
-            color: 'var(--gold)',
-            marginBottom: 28,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 20,
+            marginBottom: 16,
           }}
         >
-          Videographer · Vienna, Austria
+          <span style={{ fontSize: '0.7rem', letterSpacing: '0.35em', textTransform: 'uppercase', color: 'var(--ink-dim)' }}>
+            Videographer
+          </span>
+          <span style={{ width: 1, height: 14, background: 'var(--gold)', opacity: 0.6, display: 'block' }} />
+          <span style={{ fontSize: '0.7rem', letterSpacing: '0.35em', textTransform: 'uppercase', color: 'var(--ink-dim)' }}>
+            Director
+          </span>
         </motion.div>
 
-        {/* Title */}
-        <h1 style={{
-          fontFamily: 'var(--font-cormorant), Georgia, serif',
-          fontSize: 'clamp(3rem, 7.5vw, 7.5rem)',
-          fontWeight: 300,
-          lineHeight: 1.02,
-          letterSpacing: '-0.01em',
-          marginBottom: 28,
-          overflow: 'hidden',
-        }}>
-          {['Cinematic Stories', 'That Feel Real'].map((line, i) => (
-            <span key={i} style={{ display: 'block', overflow: 'hidden' }}>
-              <motion.span
-                style={{ display: 'block' }}
-                initial={{ y: '110%' }}
-                animate={{ y: 0 }}
-                transition={{
-                  delay: 1.85 + i * 0.18,
-                  duration: 0.9,
-                  ease: [0.76, 0, 0.24, 1],
-                }}
-              >
-                {i === 1 ? (
-                  <>That Feel <em style={{ fontStyle: 'italic', color: 'var(--gold)' }}>Real</em></>
-                ) : line}
-              </motion.span>
-            </span>
-          ))}
-        </h1>
-
-        {/* Subheadline */}
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2.4, duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
+        {/* Location */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 2.4, duration: 0.7 }}
           style={{
-            fontSize: 'clamp(0.85rem, 1.5vw, 1rem)',
-            fontWeight: 300,
-            fontFamily: 'var(--font-outfit), sans-serif',
-            color: 'var(--ink-dim)',
-            letterSpacing: '0.12em',
-            marginBottom: 52,
+            fontSize: '0.6rem',
+            letterSpacing: '0.4em',
+            textTransform: 'uppercase',
+            color: 'var(--gold)',
+            marginBottom: 56,
           }}
         >
-          Videographer &amp; Creative Filmmaker based in Vienna.
-        </motion.p>
+          Vienna, Austria
+        </motion.div>
 
         {/* CTA Buttons */}
         <motion.div
@@ -173,48 +149,15 @@ export default function HeroSection() {
           transition={{ delay: 2.7, duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
           style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}
         >
-          <button
-            className="btn-gold"
-            onClick={() => scrollTo('#portfolio')}
-          >
-            View Portfolio
+          <button className="btn-gold" onClick={() => scrollTo('#showreel')}>
+            View Showreel
           </button>
-          <button
-            className="btn-outline"
-            onClick={() => scrollTo('#contact')}
-          >
+          <button className="btn-outline" onClick={() => scrollTo('#contact')}>
             Let's Work Together
           </button>
         </motion.div>
       </div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 3.2, duration: 0.8 }}
-        style={{
-          position: 'absolute',
-          bottom: 40,
-          left: '50%',
-          transform: 'translateX(-50%)',
-          zIndex: 3,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: 12,
-        }}
-      >
-        <span style={{
-          fontSize: '0.58rem',
-          letterSpacing: '0.32em',
-          textTransform: 'uppercase',
-          color: 'var(--ink-muted)',
-        }}>
-          Scroll
-        </span>
-        <div className="scroll-line" />
-      </motion.div>
     </section>
   );
 }

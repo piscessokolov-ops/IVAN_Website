@@ -96,21 +96,26 @@ export default function LoadingScreen() {
               />
             </motion.div>
 
-            {/* Tagline */}
+            {/* Roles */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5, duration: 0.6 }}
               style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 16,
                 fontFamily: 'var(--font-outfit), sans-serif',
                 fontWeight: 300,
                 fontSize: '0.65rem',
                 letterSpacing: '0.35em',
-                color: 'var(--ink-muted)',
+                color: 'rgba(232,225,217,0.45)',
                 textTransform: 'uppercase',
               }}
             >
-              Cinematic Videographer · Vienna
+              <span>Videographer</span>
+              <span style={{ width: 1, height: 12, background: '#8BBFD6', opacity: 0.6, display: 'block' }} />
+              <span>Director</span>
             </motion.div>
           </div>
         </motion.div>

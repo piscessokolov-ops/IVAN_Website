@@ -4,11 +4,11 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const links = [
-  { label: 'About', href: '#about' },
-  { label: 'Services', href: '#services' },
-  { label: 'Portfolio', href: '#portfolio' },
-  { label: 'Process', href: '#process' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'About',     href: '#about'     },
+  { label: 'Showreel',  href: '#showreel'  },
+  { label: 'Backstage', href: '#backstage' },
+  { label: 'Process',   href: '#process'   },
+  { label: 'Contact',   href: '#contact'   },
 ];
 
 export default function Navbar() {
@@ -55,7 +55,7 @@ export default function Navbar() {
           justifyContent: 'space-between',
           padding: scrolled ? '16px 48px' : '28px 48px',
           transition: 'padding 0.4s, background 0.4s, backdrop-filter 0.4s',
-          background: scrolled ? 'rgba(8,8,8,0.88)' : 'transparent',
+          background: scrolled ? 'rgba(12,24,44,0.88)' : 'transparent',
           backdropFilter: scrolled ? 'blur(20px)' : 'none',
           WebkitBackdropFilter: scrolled ? 'blur(20px)' : 'none',
           borderBottom: scrolled ? '1px solid rgba(240,235,225,0.06)' : '1px solid transparent',
@@ -98,11 +98,11 @@ export default function Navbar() {
         <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
           <a
             href="#contact"
-            className="btn-outline hidden-mobile"
-            style={{ padding: '9px 20px', fontSize: '0.68rem' }}
+            className="btn-gold hidden-mobile"
+            style={{ padding: '9px 24px', fontSize: '0.62rem' }}
             onClick={(e) => { e.preventDefault(); scrollTo('#contact'); }}
           >
-            Let's Work Together
+            Contact
           </a>
 
           {/* Hamburger */}
@@ -152,7 +152,7 @@ export default function Navbar() {
               position: 'fixed',
               inset: 0,
               zIndex: 999,
-              background: 'var(--bg)',
+              background: 'rgba(12,24,44,0.97)',
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',

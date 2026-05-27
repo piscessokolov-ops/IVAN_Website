@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 
 const infoItems = [
@@ -54,14 +54,6 @@ const infoItems = [
 export default function ContactSection() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 3500);
-  };
-
   const fadeUp = (delay = 0) => ({
     initial: { opacity: 0, y: 30 },
     animate: inView ? { opacity: 1, y: 0 } : {},
@@ -72,31 +64,14 @@ export default function ContactSection() {
     <section
       id="contact"
       ref={ref}
-      style={{ position: 'relative', overflow: 'hidden' }}
+      style={{ position: 'relative' }}
     >
-      {/* Atmospheric background */}
       <div style={{
-        position: 'absolute',
-        inset: 0,
-        background: `
-          radial-gradient(ellipse 60% 60% at 80% 50%, rgba(200,169,110,0.04) 0%, transparent 70%),
-          radial-gradient(ellipse 40% 80% at 20% 30%, rgba(100,80,40,0.03) 0%, transparent 60%),
-          var(--bg-1)
-        `,
-      }} />
-
-      <div style={{
-        position: 'relative',
-        zIndex: 1,
-        maxWidth: 1400,
+        maxWidth: 800,
         margin: '0 auto',
         padding: 'clamp(80px,10vw,140px) clamp(24px,5vw,80px)',
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-        gap: 'clamp(48px,8vw,120px)',
-        alignItems: 'start',
+        textAlign: 'center',
       }}>
-        {/* Left: headline + info */}
         <div>
           <motion.span className="label" {...fadeUp(0)}>Get in Touch</motion.span>
 
@@ -112,7 +87,7 @@ export default function ContactSection() {
             <em style={{ fontStyle: 'italic', color: 'var(--gold)' }}>Beautiful</em>
           </motion.h2>
 
-          <motion.div {...fadeUp(0.2)} style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
+          <motion.div {...fadeUp(0.2)} style={{ display: 'flex', flexDirection: 'column', gap: 28, alignItems: 'center' }}>
             {infoItems.map((item) => (
               <div key={item.label} style={{ display: 'flex', alignItems: 'flex-start', gap: 18 }}>
                 <div style={{ color: 'var(--gold)', marginTop: 2, flexShrink: 0 }}>
@@ -151,39 +126,6 @@ export default function ContactSection() {
           </motion.div>
         </div>
 
-        {/* Right: form */}
-        <motion.div {...fadeUp(0.15)}>
-          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column' }}>
-            <div className="form-field">
-              <label>Your Name</label>
-              <input type="text" placeholder="John Doe" required />
-              <div className="form-line" />
-            </div>
-            <div className="form-field">
-              <label>Email Address</label>
-              <input type="email" placeholder="hello@yourcompany.com" required />
-              <div className="form-line" />
-            </div>
-            <div className="form-field">
-              <label>Project Type</label>
-              <input type="text" placeholder="Brand Film / Music Video / Event…" />
-              <div className="form-line" />
-            </div>
-            <div className="form-field">
-              <label>Tell Me About Your Project</label>
-              <textarea placeholder="Share your vision, timeline, and any details…" />
-              <div className="form-line" />
-            </div>
-
-            <button
-              type="submit"
-              className="btn-gold"
-              style={{ alignSelf: 'flex-start', marginTop: 8 }}
-            >
-              {submitted ? 'Message Sent ✓' : 'Send Message'}
-            </button>
-          </form>
-        </motion.div>
       </div>
     </section>
   );

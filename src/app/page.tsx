@@ -3,12 +3,10 @@ import CustomCursor from '@/components/ui/CustomCursor';
 import Navbar from '@/components/layout/Navbar';
 import HeroSection from '@/components/sections/HeroSection';
 import AboutSection from '@/components/sections/AboutSection';
-import ServicesSection from '@/components/sections/ServicesSection';
-import PortfolioSection from '@/components/sections/PortfolioSection';
-import TestimonialsSection from '@/components/sections/TestimonialsSection';
+import ShowreelSection from '@/components/sections/ShowreelSection';
+import BackstageSection from '@/components/sections/BackstageSection';
 import ProcessSection from '@/components/sections/ProcessSection';
 import ContactSection from '@/components/sections/ContactSection';
-import FooterSection from '@/components/sections/FooterSection';
 
 export default function Home() {
   return (
@@ -29,14 +27,23 @@ export default function Home() {
       <main>
         <HeroSection />
         <AboutSection />
-        <ServicesSection />
-        <PortfolioSection />
-        <TestimonialsSection />
+        <ShowreelSection />
+        <BackstageSection />
         <ProcessSection />
         <ContactSection />
       </main>
 
-      <FooterSection />
+      <footer style={{
+        padding: '24px clamp(24px,5vw,80px)',
+        borderTop: '1px solid var(--border)',
+        textAlign: 'center',
+        fontSize: '0.6rem',
+        letterSpacing: '0.18em',
+        color: 'var(--ink-muted)',
+        textTransform: 'uppercase',
+      }}>
+        All rights reserved © 2026 Ivan Dubovoi
+      </footer>
     </>
   );
 }
