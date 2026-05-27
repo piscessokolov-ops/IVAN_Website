@@ -49,12 +49,13 @@ export default function ShowreelSection() {
         transition={{ duration: 0.9, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
         style={{ width: '70%', margin: '0 auto' }}
       >
-        <div style={{ width: '100%', background: '#000', lineHeight: 0 }}>
-          <video
-            src="/showreel.mp4"
-            controls
-            playsInline
-            style={{ width: '100%', height: 'auto', display: 'block' }}
+        <div style={{ position: 'relative', width: '100%', aspectRatio: '16/9', background: '#000' }}>
+          <iframe
+            src="https://www.youtube.com/embed/5qpkhQEErGE?rel=0&modestbranding=1"
+            title="Ivan Dubovoi Showreel"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 'none' }}
           />
         </div>
       </motion.div>
