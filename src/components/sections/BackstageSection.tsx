@@ -13,6 +13,7 @@ const photos = [
   '/backstage/photo_5219679858437332358_y.jpg',
   '/backstage/photo_5219679858437332359_y.jpg',
   '/backstage/photo_5219679858437332364_y.jpg',
+  '/backstage/PXL_20240509_160310171.jpg',
 ];
 
 export default function BackstageSection() {
