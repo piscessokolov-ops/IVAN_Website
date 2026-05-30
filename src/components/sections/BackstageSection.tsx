@@ -64,6 +64,7 @@ export default function BackstageSection() {
       </div>
 
       {/* Justified gallery — flex: ar gives equal row heights with zero cropping */}
+      <div style={{ maxWidth: '70%', margin: '0 auto' }}>
       <div className="bs-gallery">
         {rows.map((row, ri) => (
           <motion.div
@@ -92,6 +93,7 @@ export default function BackstageSection() {
             ))}
           </motion.div>
         ))}
+      </div>
       </div>
 
       <style>{`
