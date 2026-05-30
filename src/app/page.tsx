@@ -1,5 +1,6 @@
 import LoadingScreen from '@/components/ui/LoadingScreen';
 import CustomCursor from '@/components/ui/CustomCursor';
+import ImpressumButton from '@/components/ui/ImpressumButton';
 import Navbar from '@/components/layout/Navbar';
 import HeroSection from '@/components/sections/HeroSection';
 import AboutSection from '@/components/sections/AboutSection';
@@ -34,13 +35,18 @@ export default function Home() {
       <footer style={{
         padding: '24px clamp(24px,5vw,80px)',
         borderTop: '1px solid var(--border)',
-        textAlign: 'center',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        flexWrap: 'wrap',
+        gap: 12,
         fontSize: '0.6rem',
         letterSpacing: '0.18em',
         color: 'var(--ink-muted)',
         textTransform: 'uppercase',
       }}>
-        All rights reserved © 2026 Ivan Dubovoi
+        <span>All rights reserved © 2026 Ivan Dubovoi</span>
+        <ImpressumButton />
       </footer>
     </>
   );
