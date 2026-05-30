@@ -8,12 +8,10 @@ const rows: { src: string; ar: number }[][] = [
   [
     { src: '/backstage/photo_5219679858437332353_y.jpg', ar: 828 / 943 },
     { src: '/backstage/photo_5219679858437332355_y.jpg', ar: 1280 / 848 },
-  ],
-  [
     { src: '/backstage/photo_5219679858437332356_y.jpg', ar: 853 / 1280 },
-    { src: '/backstage/photo_5219679858437332358_y.jpg', ar: 964 / 1280 },
   ],
   [
+    { src: '/backstage/photo_5219679858437332358_y.jpg', ar: 964 / 1280 },
     { src: '/backstage/photo_5219679858437332359_y.jpg', ar: 1070 / 1280 },
     { src: '/backstage/photo_5219679858437332364_y.jpg', ar: 960 / 1280 },
   ],
