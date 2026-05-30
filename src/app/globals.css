@@ -41,10 +41,6 @@ body {
 /* ── Selection ── */
 ::selection { background: rgba(92,127,163,0.4); color: var(--ink); }
 
-/* ── Cursor ── */
-@media (pointer: fine) {
-  body, a, button, [role="button"] { cursor: none; }
-}
 
 /* ── Typography ── */
 .font-display { font-family: var(--font-cormorant), Georgia, serif; }

@@ -1,5 +1,4 @@
 import LoadingScreen from '@/components/ui/LoadingScreen';
-import CustomCursor from '@/components/ui/CustomCursor';
 import ImpressumButton from '@/components/ui/ImpressumButton';
 import Navbar from '@/components/layout/Navbar';
 import HeroSection from '@/components/sections/HeroSection';
@@ -15,9 +14,6 @@ export default function Home() {
 
       {/* Loading screen */}
       <LoadingScreen />
-
-      {/* Custom cursor (hidden on touch devices) */}
-      <CustomCursor />
 
       {/* Sticky navigation */}
       <Navbar />
