@@ -1,16 +1,10 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import { motion } from 'framer-motion';
 
 export default function HeroSection() {
-  const [letterboxOpen, setLetterboxOpen] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setLetterboxOpen(true), 2800);
-    return () => clearTimeout(timer);
-  }, []);
 
   const scrollTo = (href: string) => {
     const el = document.querySelector(href);
@@ -61,21 +55,6 @@ export default function HeroSection() {
         zIndex: 1,
       }} />
 
-      {/* Cinematic letterbox bars */}
-      <div style={{
-        position: 'absolute', top: 0, left: 0, right: 0,
-        height: letterboxOpen ? 0 : '10%',
-        background: '#000',
-        zIndex: 2,
-        transition: 'height 1.6s cubic-bezier(0.76,0,0.24,1)',
-      }} />
-      <div style={{
-        position: 'absolute', bottom: 0, left: 0, right: 0,
-        height: letterboxOpen ? 0 : '10%',
-        background: '#000',
-        zIndex: 2,
-        transition: 'height 1.6s cubic-bezier(0.76,0,0.24,1)',
-      }} />
 
       {/* Hero content */}
       <div style={{

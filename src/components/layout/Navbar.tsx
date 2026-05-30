@@ -1,7 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
 
 const links = [
   { label: 'About',     href: '#about'     },
@@ -11,18 +10,28 @@ const links = [
 ];
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
+  const navRef = useRef<HTMLElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
 
+  // Scroll effect via direct DOM class toggle with hysteresis — no React re-render
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    const nav = navRef.current;
+    if (!nav) return;
+    const update = () => {
+      const y = window.scrollY;
+      if (y > 80) nav.classList.add('nav-scrolled');
+      else if (y < 40) nav.classList.remove('nav-scrolled');
+    };
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    return () => window.removeEventListener('scroll', update);
   }, []);
 
-  const closeMenu = () => {
+  const scrollTo = (href: string) => {
     setMenuOpen(false);
     document.body.style.overflow = '';
+    const el = document.querySelector(href);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
   const toggleMenu = () => {
@@ -31,55 +40,20 @@ export default function Navbar() {
     document.body.style.overflow = next ? 'hidden' : '';
   };
 
-  const scrollTo = (href: string) => {
-    closeMenu();
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
     <>
-      <motion.nav
-        initial={{ y: -80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 2.2, duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          zIndex: 1000,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          padding: scrolled ? '16px 48px' : '28px 48px',
-          transition: 'padding 0.4s, background 0.4s, backdrop-filter 0.4s',
-          background: scrolled ? 'rgba(12,24,44,0.88)' : 'transparent',
-          backdropFilter: scrolled ? 'blur(20px)' : 'none',
-          WebkitBackdropFilter: scrolled ? 'blur(20px)' : 'none',
-          borderBottom: scrolled ? '1px solid rgba(240,235,225,0.06)' : '1px solid transparent',
-        }}
-      >
+      <nav ref={navRef} className="site-nav">
         {/* Logo */}
         <a
           href="#hero"
+          className="nav-logo"
           onClick={(e) => { e.preventDefault(); scrollTo('#hero'); }}
-          style={{
-            fontFamily: 'var(--font-cormorant), serif',
-            fontWeight: 400,
-            fontSize: '1.05rem',
-            letterSpacing: '0.28em',
-            textTransform: 'uppercase',
-            color: 'var(--ink)',
-            textDecoration: 'none',
-          }}
         >
           Ivan Dubovoi
         </a>
 
         {/* Desktop links */}
-        <ul style={{ display: 'flex', listStyle: 'none', gap: 40, alignItems: 'center' }}
-          className="hidden-mobile">
+        <ul className="nav-links">
           {links.map((l) => (
             <li key={l.href}>
               <a
@@ -94,138 +68,163 @@ export default function Navbar() {
         </ul>
 
         {/* CTA + hamburger */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
+        <div className="nav-right">
           <a
             href="#contact"
-            className="btn-gold hidden-mobile"
-            style={{ padding: '9px 24px', fontSize: '0.62rem' }}
+            className="btn-gold nav-cta"
             onClick={(e) => { e.preventDefault(); scrollTo('#contact'); }}
           >
             Contact
           </a>
-
-          {/* Hamburger */}
           <button
-            className="show-mobile"
+            className="nav-hamburger"
             onClick={toggleMenu}
             aria-label="Toggle menu"
-            style={{
-              background: 'none',
-              border: 'none',
-              padding: '8px',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 5,
-              cursor: 'pointer',
-            }}
+            aria-expanded={menuOpen}
           >
-            {[0, 1, 2].map((i) => (
-              <span key={i} style={{
-                display: 'block',
-                width: 24,
-                height: 1,
-                background: 'var(--ink)',
-                transition: 'transform 0.4s, opacity 0.4s, width 0.4s',
-                transformOrigin: 'center',
-                transform: menuOpen
-                  ? i === 0 ? 'translateY(6px) rotate(45deg)'
-                  : i === 2 ? 'translateY(-6px) rotate(-45deg)'
-                  : 'none'
-                  : 'none',
-                opacity: menuOpen && i === 1 ? 0 : 1,
-              }} />
-            ))}
+            <span className={menuOpen ? 'bar bar-top open' : 'bar bar-top'} />
+            <span className={menuOpen ? 'bar bar-mid open' : 'bar bar-mid'} />
+            <span className={menuOpen ? 'bar bar-bot open' : 'bar bar-bot'} />
           </button>
         </div>
-      </motion.nav>
+      </nav>
 
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.4 }}
-            style={{
-              position: 'fixed',
-              inset: 0,
-              zIndex: 999,
-              background: 'rgba(12,24,44,0.97)',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: 40,
-            }}
+      {/* Mobile overlay */}
+      <div className={menuOpen ? 'mobile-menu open' : 'mobile-menu'}>
+        {links.map((l) => (
+          <a
+            key={l.href}
+            href={l.href}
+            className="mobile-link"
+            onClick={(e) => { e.preventDefault(); scrollTo(l.href); }}
           >
-            {/* Corner accents */}
-            <div style={{
-              position: 'absolute',
-              top: 32, left: 32,
-              width: 28, height: 28,
-              borderTop: '1px solid rgba(200,169,110,0.3)',
-              borderLeft: '1px solid rgba(200,169,110,0.3)',
-            }} />
-            <div style={{
-              position: 'absolute',
-              bottom: 32, right: 32,
-              width: 28, height: 28,
-              borderBottom: '1px solid rgba(200,169,110,0.3)',
-              borderRight: '1px solid rgba(200,169,110,0.3)',
-            }} />
-
-            {links.map((l, i) => (
-              <motion.a
-                key={l.href}
-                href={l.href}
-                initial={{ opacity: 0, x: -30 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ delay: i * 0.07, duration: 0.5 }}
-                onClick={(e) => { e.preventDefault(); scrollTo(l.href); }}
-                style={{
-                  fontFamily: 'var(--font-cormorant), serif',
-                  fontSize: 'clamp(2.5rem, 8vw, 4.5rem)',
-                  fontWeight: 300,
-                  color: 'var(--ink)',
-                  textDecoration: 'none',
-                  letterSpacing: '0.05em',
-                  transition: 'color 0.3s',
-                }}
-                whileHover={{ x: 12, color: '#C8A96E' } as any}
-              >
-                {l.label}
-              </motion.a>
-            ))}
-
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-              style={{
-                position: 'absolute',
-                bottom: 40,
-                fontSize: '0.65rem',
-                letterSpacing: '0.3em',
-                textTransform: 'uppercase',
-                color: 'var(--ink-muted)',
-              }}
-            >
-              Vienna, Austria
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            {l.label}
+          </a>
+        ))}
+        <span className="mobile-location">Vienna, Austria</span>
+      </div>
 
       <style>{`
+        /* ── Base nav ── */
+        .site-nav {
+          position: fixed;
+          top: 0; left: 0; right: 0;
+          z-index: 1000;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 28px 48px;
+          background: transparent;
+          border-bottom: 1px solid transparent;
+          transition: padding 0.4s ease, background 0.4s ease, border-color 0.4s ease;
+        }
+        .site-nav.nav-scrolled {
+          padding: 16px 48px;
+          background: rgba(10, 20, 40, 0.92);
+          border-bottom-color: rgba(240,235,225,0.06);
+        }
+
+        /* ── Logo ── */
+        .nav-logo {
+          font-family: var(--font-cormorant), serif;
+          font-weight: 400;
+          font-size: 1.05rem;
+          letter-spacing: 0.28em;
+          text-transform: uppercase;
+          color: var(--ink);
+          text-decoration: none;
+          white-space: nowrap;
+        }
+
+        /* ── Desktop links ── */
+        .nav-links {
+          display: flex;
+          list-style: none;
+          gap: 40px;
+          align-items: center;
+        }
+
+        /* ── Right side ── */
+        .nav-right {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+        }
+        .nav-cta {
+          padding: 9px 24px;
+          font-size: 0.62rem;
+        }
+
+        /* ── Hamburger ── */
+        .nav-hamburger {
+          display: none;
+          flex-direction: column;
+          gap: 5px;
+          background: none;
+          border: none;
+          padding: 8px;
+          cursor: pointer;
+        }
+        .bar {
+          display: block;
+          width: 24px;
+          height: 1px;
+          background: var(--ink);
+          transition: transform 0.35s ease, opacity 0.35s ease;
+          transform-origin: center;
+        }
+        .bar-top.open  { transform: translateY(6px) rotate(45deg); }
+        .bar-mid.open  { opacity: 0; }
+        .bar-bot.open  { transform: translateY(-6px) rotate(-45deg); }
+
+        /* ── Mobile overlay ── */
+        .mobile-menu {
+          position: fixed;
+          inset: 0;
+          z-index: 999;
+          background: rgba(10, 20, 40, 0.97);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 36px;
+          opacity: 0;
+          pointer-events: none;
+          transition: opacity 0.35s ease;
+        }
+        .mobile-menu.open {
+          opacity: 1;
+          pointer-events: auto;
+        }
+        .mobile-link {
+          font-family: var(--font-cormorant), serif;
+          font-size: clamp(2.5rem, 8vw, 4.5rem);
+          font-weight: 300;
+          color: var(--ink);
+          text-decoration: none;
+          letter-spacing: 0.05em;
+          transition: color 0.3s;
+        }
+        .mobile-link:hover { color: var(--gold); }
+        .mobile-location {
+          position: absolute;
+          bottom: 40px;
+          font-size: 0.65rem;
+          letter-spacing: 0.3em;
+          text-transform: uppercase;
+          color: var(--ink-muted);
+        }
+
+        /* ── Responsive ── */
         @media (max-width: 768px) {
-          .hidden-mobile { display: none !important; }
-          .show-mobile { display: flex !important; }
+          .site-nav { padding: 20px 24px; }
+          .site-nav.nav-scrolled { padding: 14px 24px; }
+          .nav-links, .nav-cta { display: none; }
+          .nav-hamburger { display: flex; }
         }
         @media (min-width: 769px) {
-          .hidden-mobile { display: flex; }
-          .show-mobile { display: none !important; }
+          .nav-hamburger { display: none; }
+          .mobile-menu { display: none; }
         }
       `}</style>
     </>
