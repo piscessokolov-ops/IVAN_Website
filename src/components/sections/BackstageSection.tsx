@@ -4,16 +4,23 @@ import { useRef } from 'react';
 import Image from 'next/image';
 import { motion, useInView } from 'framer-motion';
 
-const photos = [
-  '/backstage/IMG_5494.jpg',
-  '/backstage/photo_5212995476276764687_y.jpg',
-  '/backstage/photo_5219679858437332353_y.jpg',
-  '/backstage/photo_5219679858437332355_y.jpg',
-  '/backstage/photo_5219679858437332356_y.jpg',
-  '/backstage/photo_5219679858437332358_y.jpg',
-  '/backstage/photo_5219679858437332359_y.jpg',
-  '/backstage/photo_5219679858437332364_y.jpg',
-  '/backstage/PXL_20240509_160310171.jpg',
+// 3 rows × 3 photos each
+const rows = [
+  [
+    '/backstage/photo_5219679858437332353_y.jpg',
+    '/backstage/photo_5219679858437332355_y.jpg',
+    '/backstage/photo_5219679858437332356_y.jpg',
+  ],
+  [
+    '/backstage/photo_5219679858437332358_y.jpg',
+    '/backstage/photo_5219679858437332359_y.jpg',
+    '/backstage/photo_5219679858437332364_y.jpg',
+  ],
+  [
+    '/backstage/IMG_5494.jpg',
+    '/backstage/photo_5212995476276764687_y.jpg',
+    '/backstage/PXL_20240509_160310171.jpg',
+  ],
 ];
 
 export default function BackstageSection() {
@@ -55,45 +62,56 @@ export default function BackstageSection() {
         </motion.h2>
       </div>
 
-      {/* Grid: uniform rows, no cropping */}
-      <div className="backstage-grid">
-        {photos.map((src, i) => (
+      {/* Gallery */}
+      <div className="bs-gallery">
+        {rows.map((row, ri) => (
           <motion.div
-            key={src}
-            className="backstage-cell"
+            key={ri}
+            className="bs-row"
             initial={{ opacity: 0 }}
             animate={inView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.5, delay: 0.06 * i }}
+            transition={{ duration: 0.6, delay: 0.15 * ri }}
           >
-            <Image
-              src={src}
-              alt={`Backstage ${i + 1}`}
-              fill
-              sizes="(max-width: 600px) 50vw, 33vw"
-              style={{ objectFit: 'contain', objectPosition: 'center' }}
-            />
+            {row.map((src, ci) => (
+              <div key={src} className="bs-cell">
+                <Image
+                  src={src}
+                  alt={`Backstage ${ri * 3 + ci + 1}`}
+                  fill
+                  sizes="(max-width: 600px) 50vw, 33vw"
+                  style={{ objectFit: 'cover', objectPosition: 'center' }}
+                />
+              </div>
+            ))}
           </motion.div>
         ))}
       </div>
 
       <style>{`
-        .backstage-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          row-gap: 2px;
-          column-gap: 2px;
+        .bs-gallery {
+          display: flex;
+          flex-direction: column;
+          gap: 2px;
         }
-        .backstage-cell {
+        .bs-row {
+          display: flex;
+          gap: 2px;
+          height: clamp(160px, 22vw, 320px);
+        }
+        .bs-cell {
           position: relative;
-          aspect-ratio: 3 / 2;
+          flex: 1;
           overflow: hidden;
         }
+        .bs-cell img {
+          transition: transform 0.5s ease;
+        }
+        .bs-cell:hover img {
+          transform: scale(1.04);
+        }
+
         @media (max-width: 600px) {
-          .backstage-grid {
-            grid-template-columns: repeat(2, 1fr);
-            row-gap: 2px;
-            column-gap: 2px;
-          }
+          .bs-row { height: clamp(120px, 28vw, 180px); }
         }
       `}</style>
     </section>
