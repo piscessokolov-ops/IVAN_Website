@@ -1,11 +1,8 @@
 'use client';
 
-import { useRef } from 'react';
 import { motion } from 'framer-motion';
 
 export default function HeroSection() {
-  const videoRef = useRef<HTMLVideoElement>(null);
-
   const scrollTo = (href: string) => {
     const el = document.querySelector(href);
     if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -24,42 +21,18 @@ export default function HeroSection() {
         overflow: 'hidden',
       }}
     >
-
-      {/* Video background (swap in real video) */}
-      <video
-        ref={videoRef}
-        autoPlay
-        muted
-        loop
-        playsInline
-        style={{
-          position: 'absolute',
-          inset: 0,
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          opacity: 0.32,
-        }}
-      >
-        {/* <source src="/videos/hero.mp4" type="video/mp4" /> */}
-      </video>
-
-      {/* Cinematic vignette overlay */}
+      {/* Vignette */}
       <div style={{
         position: 'absolute',
         inset: 0,
-        background: `
-          linear-gradient(to bottom, rgba(8,8,8,0.25) 0%, rgba(8,8,8,0.05) 40%, rgba(8,8,8,0.55) 100%),
-          radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,0.75) 100%)
-        `,
-        zIndex: 1,
+        background: 'radial-gradient(ellipse at center, transparent 30%, rgba(4,10,22,0.7) 100%)',
+        pointerEvents: 'none',
       }} />
 
-
-      {/* Hero content */}
+      {/* Content */}
       <div style={{
         position: 'relative',
-        zIndex: 3,
+        zIndex: 1,
         textAlign: 'center',
         maxWidth: 900,
         padding: '0 32px',
@@ -87,7 +60,7 @@ export default function HeroSection() {
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2.1, duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
+          transition={{ delay: 2.1, duration: 0.7 }}
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -121,11 +94,11 @@ export default function HeroSection() {
           Vienna, Austria
         </motion.div>
 
-        {/* CTA Buttons */}
+        {/* Buttons */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2.7, duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
+          transition={{ delay: 2.7, duration: 0.7 }}
           style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}
         >
           <button className="btn-gold" onClick={() => scrollTo('#showreel')}>
@@ -136,7 +109,6 @@ export default function HeroSection() {
           </button>
         </motion.div>
       </div>
-
     </section>
   );
 }

@@ -11,8 +11,6 @@ import ContactSection from '@/components/sections/ContactSection';
 export default function Home() {
   return (
     <>
-      {/* Grain film texture */}
-      <div className="grain-overlay" aria-hidden="true" />
 
       {/* Loading screen */}
       <LoadingScreen />
