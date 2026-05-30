@@ -112,8 +112,8 @@ export default function ImpressumButton() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 28, fontSize: '0.85rem', lineHeight: 1.75, color: 'var(--ink-dim)' }}>
 
               <div>
-                <p style={labelStyle}>Medieninhaber & Diensteanbieter</p>
-                <p>Ivan Dubovoi</p>
+                <p style={labelStyle}>Medieninhaber</p>
+                <p>Ivan Dubovoi (Privatperson)</p>
               </div>
 
               <div>
@@ -144,16 +144,6 @@ export default function ImpressumButton() {
                     +43 681 81513554
                   </a>
                 </p>
-              </div>
-
-              <div>
-                <p style={labelStyle}>Unternehmensgegenstand</p>
-                <p>Videografie und Filmregie</p>
-              </div>
-
-              <div>
-                <p style={labelStyle}>Unternehmensart</p>
-                <p>Einzelunternehmer</p>
               </div>
 
               <div>
