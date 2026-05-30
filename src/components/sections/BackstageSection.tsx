@@ -1,29 +1,26 @@
 'use client';
 
 import { useRef } from 'react';
-import Image from 'next/image';
 import { motion, useInView } from 'framer-motion';
 
-// 2 columns everywhere — same layout on desktop and mobile
-const rows = [
+// ar = natural width / height — used for justified gallery (equal heights, no cropping)
+const rows: { src: string; ar: number }[][] = [
   [
-    '/backstage/photo_5219679858437332353_y.jpg',
-    '/backstage/photo_5219679858437332355_y.jpg',
+    { src: '/backstage/photo_5219679858437332353_y.jpg', ar: 828 / 943 },
+    { src: '/backstage/photo_5219679858437332355_y.jpg', ar: 1280 / 848 },
   ],
   [
-    '/backstage/photo_5219679858437332356_y.jpg',
-    '/backstage/photo_5219679858437332358_y.jpg',
+    { src: '/backstage/photo_5219679858437332356_y.jpg', ar: 853 / 1280 },
+    { src: '/backstage/photo_5219679858437332358_y.jpg', ar: 964 / 1280 },
   ],
   [
-    '/backstage/photo_5219679858437332359_y.jpg',
-    '/backstage/photo_5219679858437332364_y.jpg',
+    { src: '/backstage/photo_5219679858437332359_y.jpg', ar: 1070 / 1280 },
+    { src: '/backstage/photo_5219679858437332364_y.jpg', ar: 960 / 1280 },
   ],
   [
-    '/backstage/IMG_5494.jpg',
-    '/backstage/photo_5212995476276764687_y.jpg',
-  ],
-  [
-    '/backstage/PXL_20240509_160310171.jpg',
+    { src: '/backstage/IMG_5494.jpg', ar: 2530 / 3162 },
+    { src: '/backstage/photo_5212995476276764687_y.jpg', ar: 960 / 1280 },
+    { src: '/backstage/PXL_20240509_160310171.jpg', ar: 3072 / 4080 },
   ],
 ];
 
@@ -66,7 +63,7 @@ export default function BackstageSection() {
         </motion.h2>
       </div>
 
-      {/* Gallery — identical on all screen sizes */}
+      {/* Justified gallery — flex: ar gives equal row heights with zero cropping */}
       <div className="bs-gallery">
         {rows.map((row, ri) => (
           <motion.div
@@ -76,14 +73,20 @@ export default function BackstageSection() {
             animate={inView ? { opacity: 1 } : {}}
             transition={{ duration: 0.6, delay: 0.12 * ri }}
           >
-            {row.map((src, ci) => (
-              <div key={src} className="bs-cell">
-                <Image
-                  src={src}
-                  alt={`Backstage ${ri * 2 + ci + 1}`}
-                  fill
-                  sizes="(max-width: 600px) 50vw, 50vw"
-                  style={{ objectFit: 'cover', objectPosition: 'center' }}
+            {row.map((photo, ci) => (
+              <div key={photo.src} style={{ flex: photo.ar, minWidth: 0 }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={photo.src}
+                  alt={`Backstage ${ri * 3 + ci + 1}`}
+                  draggable={false}
+                  style={{
+                    display: 'block',
+                    width: '100%',
+                    height: 'auto',
+                    pointerEvents: 'none',
+                    userSelect: 'none',
+                  }}
                 />
               </div>
             ))}
@@ -100,18 +103,7 @@ export default function BackstageSection() {
         .bs-row {
           display: flex;
           gap: 2px;
-          height: clamp(160px, 30vw, 480px);
-        }
-        .bs-cell {
-          position: relative;
-          flex: 1;
-          overflow: hidden;
-        }
-        .bs-cell img {
-          transition: transform 0.5s ease;
-        }
-        .bs-cell:hover img {
-          transform: scale(1.04);
+          align-items: flex-start;
         }
       `}</style>
     </section>
