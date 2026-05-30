@@ -128,47 +128,68 @@ export default function ProcessSection() {
                   color: 'var(--gold)',
                 } : {}}
                 transition={{ duration: 0.6, delay: 0.4 + i * 0.12 }}
-                style={{ marginBottom: 24 }}
+                style={{ marginBottom: 24, flexShrink: 0 }}
               >
                 {s.num}
               </motion.div>
 
-              <h3 style={{
-                fontFamily: 'var(--font-cormorant), serif',
-                fontSize: '1.2rem',
-                fontWeight: 400,
-                color: 'var(--ink)',
-                marginBottom: 10,
-              }}>
-                {s.title}
-              </h3>
-              <p style={{
-                fontSize: '0.78rem',
-                lineHeight: 1.65,
-                color: 'var(--ink-muted)',
-              }}>
-                {s.desc}
-              </p>
+              {/* Text group — stays together as one block on mobile */}
+              <div className="step-text">
+                <h3 style={{
+                  fontFamily: 'var(--font-cormorant), serif',
+                  fontSize: '1.2rem',
+                  fontWeight: 400,
+                  color: 'var(--ink)',
+                  marginBottom: 10,
+                }}>
+                  {s.title}
+                </h3>
+                <p style={{
+                  fontSize: '0.78rem',
+                  lineHeight: 1.65,
+                  color: 'var(--ink-muted)',
+                }}>
+                  {s.desc}
+                </p>
+              </div>
             </motion.div>
           ))}
         </div>
       </div>
 
-      {/* Mobile: vertical stack */}
       <style>{`
+        /* Desktop: step text centered under circle */
+        .step-text { text-align: center; }
+
         @media (max-width: 768px) {
           .process-connector { display: none; }
+
           .process-grid {
             grid-template-columns: 1fr !important;
-            gap: 40px !important;
+            gap: 36px !important;
           }
-          .process-grid > div {
+
+          /* Each step: circle left, text right */
+          .process-step {
             flex-direction: row !important;
-            text-align: left !important;
             align-items: flex-start !important;
-            gap: 24px !important;
+            text-align: left !important;
+            gap: 20px !important;
+            padding: 0 !important;
           }
-          .process-grid .step-circle { margin-bottom: 0 !important; flex-shrink: 0; }
+
+          /* Circle stays top-aligned, no bottom margin */
+          .process-step .step-circle {
+            margin-bottom: 0 !important;
+            margin-top: 2px !important;
+          }
+
+          /* Text block fills remaining width */
+          .step-text {
+            flex: 1;
+            min-width: 0;
+            text-align: left !important;
+          }
         }
       `}</style>
     </section>
