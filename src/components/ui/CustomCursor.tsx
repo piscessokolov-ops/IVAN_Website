@@ -25,8 +25,8 @@ export default function CustomCursor() {
     };
 
     const animate = () => {
-      ringPos.current.x += (mousePos.current.x - ringPos.current.x) * 0.12;
-      ringPos.current.y += (mousePos.current.y - ringPos.current.y) * 0.12;
+      ringPos.current.x += (mousePos.current.x - ringPos.current.x) * 0.22;
+      ringPos.current.y += (mousePos.current.y - ringPos.current.y) * 0.22;
       if (ringRef.current) {
         const size = hovered ? 56 : 36;
         ringRef.current.style.transform = `translate(${ringPos.current.x - size / 2}px, ${ringPos.current.y - size / 2}px)`;

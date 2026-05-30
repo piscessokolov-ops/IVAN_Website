@@ -7,4 +7,5 @@ out/
 memory/
 
 .vercel
-public/showreel.mp4
+*.mp4
+*.mov

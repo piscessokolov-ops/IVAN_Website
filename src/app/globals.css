@@ -398,7 +398,7 @@ main {
   height: 48px;
   border-radius: 50%;
   border: 1px solid var(--border);
-  background: var(--bg);
+  background: rgba(8, 15, 28, 0.92);
   display: flex;
   align-items: center;
   justify-content: center;

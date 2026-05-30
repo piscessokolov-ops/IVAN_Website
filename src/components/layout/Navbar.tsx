@@ -8,7 +8,6 @@ const links = [
   { label: 'Showreel',  href: '#showreel'  },
   { label: 'Backstage', href: '#backstage' },
   { label: 'Process',   href: '#process'   },
-  { label: 'Contact',   href: '#contact'   },
 ];
 
 export default function Navbar() {

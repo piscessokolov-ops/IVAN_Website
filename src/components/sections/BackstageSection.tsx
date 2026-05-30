@@ -55,7 +55,7 @@ export default function BackstageSection() {
       </div>
 
       {/* CSS columns masonry — no cropping, no gaps */}
-      <div style={{ columns: '4 200px', columnGap: 6 }}>
+      <div className="backstage-grid">
         {photos.map((src, i) => (
           <motion.div
             key={src}
@@ -75,17 +75,23 @@ export default function BackstageSection() {
               alt={`Backstage ${i + 1}`}
               width={0}
               height={0}
-              sizes="25vw"
+              sizes="(max-width: 600px) 50vw, (max-width: 900px) 33vw, 25vw"
               style={{ width: '100%', height: 'auto', display: 'block' }}
             />
-
           </motion.div>
         ))}
       </div>
 
       <style>{`
-        @media (max-width: 700px) {
-          #backstage > div[style*="columns"] { columns: 2 140px !important; }
+        .backstage-grid {
+          columns: 4;
+          column-gap: 6px;
+        }
+        @media (max-width: 900px) {
+          .backstage-grid { columns: 3; }
+        }
+        @media (max-width: 600px) {
+          .backstage-grid { columns: 2; }
         }
       `}</style>
     </section>

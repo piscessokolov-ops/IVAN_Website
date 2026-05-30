@@ -73,11 +73,11 @@ export default function ProcessSection() {
       {/* Desktop horizontal timeline */}
       <div style={{ position: 'relative' }}>
         {/* Connecting line */}
-        <div style={{
+        <div className="process-connector" style={{
           position: 'absolute',
           top: 24,
-          left: '10%',
-          right: '10%',
+          left: 'calc(10% + 24px)',
+          right: 'calc(10% + 24px)',
           height: 1,
           background: 'var(--border)',
           zIndex: 0,
@@ -157,6 +157,7 @@ export default function ProcessSection() {
       {/* Mobile: vertical stack */}
       <style>{`
         @media (max-width: 768px) {
+          .process-connector { display: none; }
           .process-grid {
             grid-template-columns: 1fr !important;
             gap: 40px !important;
@@ -168,7 +169,6 @@ export default function ProcessSection() {
             gap: 24px !important;
           }
           .process-grid .step-circle { margin-bottom: 0 !important; flex-shrink: 0; }
-          #process [style*="position: absolute"] { display: none; }
         }
       `}</style>
     </section>
