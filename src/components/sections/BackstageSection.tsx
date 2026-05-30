@@ -55,22 +55,23 @@ export default function BackstageSection() {
         </motion.h2>
       </div>
 
-      {/* Uniform grid */}
+      {/* Masonry columns — full format, no cropping */}
       <div className="backstage-grid">
         {photos.map((src, i) => (
           <motion.div
             key={src}
-            className="backstage-cell"
+            className="backstage-item"
             initial={{ opacity: 0 }}
             animate={inView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.6, delay: 0.06 * i }}
+            transition={{ duration: 0.6, delay: 0.07 * i }}
           >
             <Image
               src={src}
               alt={`Backstage ${i + 1}`}
-              fill
+              width={0}
+              height={0}
               sizes="(max-width: 600px) 50vw, 33vw"
-              style={{ objectFit: 'cover', objectPosition: 'center' }}
+              style={{ width: '100%', height: 'auto', display: 'block' }}
             />
           </motion.div>
         ))}
@@ -78,28 +79,17 @@ export default function BackstageSection() {
 
       <style>{`
         .backstage-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 6px;
+          columns: 3;
+          column-gap: 6px;
         }
-        .backstage-cell {
-          position: relative;
-          aspect-ratio: 4 / 3;
+        .backstage-item {
+          break-inside: avoid;
+          margin-bottom: 6px;
           overflow: hidden;
-          background: rgba(255,255,255,0.04);
+          line-height: 0;
         }
-        .backstage-cell img {
-          transition: transform 0.5s ease;
-        }
-        .backstage-cell:hover img {
-          transform: scale(1.04);
-        }
-
         @media (max-width: 600px) {
-          .backstage-grid {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 4px;
-          }
+          .backstage-grid { columns: 2; }
         }
       `}</style>
     </section>
