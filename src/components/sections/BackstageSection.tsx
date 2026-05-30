@@ -55,29 +55,22 @@ export default function BackstageSection() {
         </motion.h2>
       </div>
 
-      {/* CSS columns masonry — no cropping, no gaps */}
+      {/* Uniform grid */}
       <div className="backstage-grid">
         {photos.map((src, i) => (
           <motion.div
             key={src}
+            className="backstage-cell"
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.07 * i, ease: [0.4, 0, 0.2, 1] }}
-            style={{
-              breakInside: 'avoid',
-              marginBottom: 6,
-              position: 'relative',
-              overflow: 'hidden',
-              lineHeight: 0,
-            }}
+            transition={{ duration: 0.6, delay: 0.06 * i, ease: [0.4, 0, 0.2, 1] }}
           >
             <Image
               src={src}
               alt={`Backstage ${i + 1}`}
-              width={0}
-              height={0}
-              sizes="(max-width: 600px) 50vw, (max-width: 900px) 33vw, 25vw"
-              style={{ width: '100%', height: 'auto', display: 'block' }}
+              fill
+              sizes="(max-width: 600px) 50vw, 33vw"
+              style={{ objectFit: 'cover', objectPosition: 'center' }}
             />
           </motion.div>
         ))}
@@ -85,14 +78,28 @@ export default function BackstageSection() {
 
       <style>{`
         .backstage-grid {
-          columns: 4;
-          column-gap: 6px;
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 6px;
         }
-        @media (max-width: 900px) {
-          .backstage-grid { columns: 3; }
+        .backstage-cell {
+          position: relative;
+          aspect-ratio: 4 / 3;
+          overflow: hidden;
+          background: rgba(255,255,255,0.04);
         }
+        .backstage-cell img {
+          transition: transform 0.5s ease;
+        }
+        .backstage-cell:hover img {
+          transform: scale(1.04);
+        }
+
         @media (max-width: 600px) {
-          .backstage-grid { columns: 2; }
+          .backstage-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 4px;
+          }
         }
       `}</style>
     </section>
