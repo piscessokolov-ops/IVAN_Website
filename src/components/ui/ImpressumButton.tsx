@@ -118,10 +118,9 @@ export default function ImpressumButton() {
 
               <div>
                 <p style={labelStyle}>Anschrift</p>
-                {/* TODO: Straße, PLZ und Bezirk eintragen */}
                 <p>
-                  [Straße und Hausnummer]<br />
-                  [PLZ] Wien<br />
+                  Mariahilfer Gürtel 37/13<br />
+                  1150 Wien<br />
                   Österreich
                 </p>
               </div>
