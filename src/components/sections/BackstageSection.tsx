@@ -80,7 +80,8 @@ export default function BackstageSection() {
         .backstage-grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
-          gap: 2px;
+          row-gap: 2px;
+          column-gap: 2px;
         }
         .backstage-cell {
           position: relative;
@@ -90,7 +91,8 @@ export default function BackstageSection() {
         @media (max-width: 600px) {
           .backstage-grid {
             grid-template-columns: repeat(2, 1fr);
-            gap: 2px;
+            row-gap: 2px;
+            column-gap: 2px;
           }
         }
       `}</style>
