@@ -157,38 +157,69 @@ export default function ProcessSection() {
         </div>
       </div>
 
+      {/* Mobile table-like grid — all descriptions start at same x-position */}
+      <div className="process-mobile">
+        {steps.map((s, i) => (
+          <motion.div
+            key={s.num + '-m'}
+            initial={{ opacity: 0, y: 16 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.15 + i * 0.1 }}
+            style={{ display: 'contents' }}
+          >
+            <div className="pm-circle">{s.num}</div>
+            <div className="pm-title">{s.title}</div>
+            <div className="pm-desc">{s.desc}</div>
+          </motion.div>
+        ))}
+      </div>
+
       <style>{`
-        /* Desktop: step text centered under circle */
         .step-text { text-align: center; }
+        .process-mobile { display: none; }
 
         @media (max-width: 768px) {
           .process-connector { display: none; }
+          .process-grid { display: none !important; }
 
-          .process-grid {
-            grid-template-columns: 1fr !important;
-            gap: 36px !important;
+          .process-mobile {
+            display: grid;
+            grid-template-columns: 48px max-content 1fr;
+            column-gap: 20px;
+            row-gap: 20px;
+            align-items: center;
           }
-
-          /* Each step: circle left, text right */
-          .process-step {
-            flex-direction: row !important;
-            align-items: flex-start !important;
-            text-align: left !important;
-            gap: 20px !important;
-            padding: 0 !important;
+          .pm-circle {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 1px solid rgba(139,191,214,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-cormorant), serif;
+            font-size: 1.1rem;
+            font-weight: 300;
+            color: var(--gold);
+            flex-shrink: 0;
+            align-self: start;
+            margin-top: 2px;
           }
-
-          /* Circle stays top-aligned, no bottom margin */
-          .process-step .step-circle {
-            margin-bottom: 0 !important;
-            margin-top: 2px !important;
+          .pm-title {
+            font-family: var(--font-cormorant), serif;
+            font-size: 1.15rem;
+            font-weight: 400;
+            color: var(--ink);
+            white-space: nowrap;
+            align-self: start;
+            padding-top: 13px;
           }
-
-          /* Text block fills remaining width */
-          .step-text {
-            flex: 1;
-            min-width: 0;
-            text-align: left !important;
+          .pm-desc {
+            font-size: 0.78rem;
+            line-height: 1.65;
+            color: var(--ink-muted);
+            align-self: start;
+            padding-top: 13px;
           }
         }
       `}</style>
